@@ -1,0 +1,11 @@
+{
+  "name": "@repo/types",
+  "version": "0.1.0",
+  "scripts": {
+    "check-types": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "typescript": "^5.9.3"
+  }
+}
