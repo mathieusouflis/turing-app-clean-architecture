@@ -71,3 +71,9 @@ export default defineConfig([
   },
 ])
 ```
+
+
+Mettre en place l ORM et les dossiers larchi avec les gitkeep
+Mettre en place la migration
+
+Github Action 
