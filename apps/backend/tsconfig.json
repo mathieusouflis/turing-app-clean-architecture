@@ -16,5 +16,8 @@
     "skipLibCheck": true,
     "lib": ["ESNext"],
     "outDir": "dist"
+  },
+  "ts-node": {
+    "esm": true
   }
 }

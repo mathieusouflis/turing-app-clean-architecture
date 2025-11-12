@@ -12,6 +12,8 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "dev": "node dist/index.js",
+    "test": "NODE_OPTIONS='--import tsx' mocha",
+    "test:run": "NODE_OPTIONS='--import tsx' mocha --reporter spec",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
@@ -27,8 +29,15 @@
     "postgres": "^3.4.7"
   },
   "devDependencies": {
+    "@types/mocha": "^10.0.6",
     "@types/node": "^24.10.0",
+    "@types/sinon": "^17.0.2",
+    "chai": "^4.4.1",
     "drizzle-kit": "^0.31.6",
+    "mocha": "^10.4.0",
+    "sinon": "^17.0.1",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.1",
     "typescript": "^5.9.3"
   }
 }
