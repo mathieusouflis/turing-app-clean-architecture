@@ -8,70 +8,70 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './app/__root'
-import { Route as ProvidersRouteImport } from './app/providers'
-import { Route as IndexRouteImport } from './app/index'
+import { Route as rootRouteImport } from "./app/__root";
+import { Route as ProvidersRouteImport } from "./app/providers";
+import { Route as IndexRouteImport } from "./app/index";
 
 const ProvidersRoute = ProvidersRouteImport.update({
-  id: '/providers',
-  path: '/providers',
+  id: "/providers",
+  path: "/providers",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/providers': typeof ProvidersRoute
+  "/": typeof IndexRoute;
+  "/providers": typeof ProvidersRoute;
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/providers': typeof ProvidersRoute
+  "/": typeof IndexRoute;
+  "/providers": typeof ProvidersRoute;
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/providers': typeof ProvidersRoute
+  __root__: typeof rootRouteImport;
+  "/": typeof IndexRoute;
+  "/providers": typeof ProvidersRoute;
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/providers'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/providers'
-  id: '__root__' | '/' | '/providers'
-  fileRoutesById: FileRoutesById
+  fileRoutesByFullPath: FileRoutesByFullPath;
+  fullPaths: "/" | "/providers";
+  fileRoutesByTo: FileRoutesByTo;
+  to: "/" | "/providers";
+  id: "__root__" | "/" | "/providers";
+  fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  ProvidersRoute: typeof ProvidersRoute
+  IndexRoute: typeof IndexRoute;
+  ProvidersRoute: typeof ProvidersRoute;
 }
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/providers': {
-      id: '/providers'
-      path: '/providers'
-      fullPath: '/providers'
-      preLoaderRoute: typeof ProvidersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+    "/providers": {
+      id: "/providers";
+      path: "/providers";
+      fullPath: "/providers";
+      preLoaderRoute: typeof ProvidersRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/": {
+      id: "/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof IndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ProvidersRoute: ProvidersRoute,
-}
+};
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
