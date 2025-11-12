@@ -1,10 +1,10 @@
-import * as React from "react"
-import { mergeProps } from "@base-ui-components/react/merge-props"
-import { useRender } from "@base-ui-components/react/use-render"
-import { cva, type VariantProps } from "class-variance-authority"
+import * as React from "react";
+import { mergeProps } from "@base-ui-components/react/merge-props";
+import { useRender } from "@base-ui-components/react/use-render";
+import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "@/lib/utils"
-import { Separator } from "@/components/ui/separator"
+import { cn } from "@/lib/utils";
+import { Separator } from "@/components/ui/separator";
 
 const groupVariants = cva(
   "flex w-fit *:focus-visible:z-10 *:has-focus-visible:z-10 has-[>[data-slot=group]]:gap-2",
@@ -20,8 +20,8 @@ const groupVariants = cva(
     defaultVariants: {
       orientation: "horizontal",
     },
-  }
-)
+  },
+);
 
 function Group({
   className,
@@ -29,9 +29,9 @@ function Group({
   children,
   ...props
 }: {
-  className?: string
-  orientation?: VariantProps<typeof groupVariants>["orientation"]
-  children: React.ReactNode
+  className?: string;
+  orientation?: VariantProps<typeof groupVariants>["orientation"];
+  children: React.ReactNode;
 } & React.ComponentProps<"div">) {
   return (
     <div
@@ -43,7 +43,7 @@ function Group({
     >
       {children}
     </div>
-  )
+  );
 }
 
 function GroupText({
@@ -55,14 +55,14 @@ function GroupText({
     "data-slot": "group-text",
     className: cn(
       "relative inline-flex items-center rounded-lg border border-border bg-muted bg-clip-padding px-[calc(--spacing(3)-1px)] text-sm font-medium whitespace-nowrap shadow-xs transition-shadow outline-none before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(var(--radius-lg)-1px)] before:shadow-[0_1px_--theme(--color-black/4%)] dark:bg-input/64 dark:before:shadow-[0_-1px_--theme(--color-white/8%)] [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
-      className
+      className,
     ),
-  }
+  };
   return useRender({
     defaultTagName: "div",
     render,
     props: mergeProps(defaultProps, props),
-  })
+  });
 }
 
 function GroupSeparator({
@@ -70,18 +70,18 @@ function GroupSeparator({
   orientation = "vertical",
   ...props
 }: {
-  className?: string
+  className?: string;
 } & React.ComponentProps<typeof Separator>) {
   return (
     <Separator
       orientation={orientation}
       className={cn(
         "relative z-20 has-[+[data-slot=input-control]:focus-within,+[data-slot=select-trigger]:focus-visible+*,+[data-slot=number-field]:focus-within]:translate-x-px has-[+[data-slot=input-control]:focus-within,+[data-slot=select-trigger]:focus-visible+*,+[data-slot=number-field]:focus-within]:bg-ring [[data-slot=input-control]:focus-within+&,[data-slot=select-trigger]:focus-visible+*+&]:-translate-x-px [[data-slot=input-control]:focus-within+&,[data-slot=select-trigger]:focus-visible+*+&,[data-slot=number-field]:focus-within+&]:bg-ring",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 export {
@@ -92,4 +92,4 @@ export {
   GroupSeparator,
   GroupSeparator as ButtonGroupSeparator,
   groupVariants,
-}
+};

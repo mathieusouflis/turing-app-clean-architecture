@@ -1,13 +1,13 @@
-import { Select as SelectPrimitive } from "@base-ui-components/react/select"
+import { Select as SelectPrimitive } from "@base-ui-components/react/select";
 import {
   ChevronDownIcon,
   ChevronsUpDownIcon,
   ChevronUpIcon,
-} from "lucide-react"
+} from "lucide-react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
-const Select = SelectPrimitive.Root
+const Select = SelectPrimitive.Root;
 
 function SelectTrigger({
   className,
@@ -15,7 +15,7 @@ function SelectTrigger({
   children,
   ...props
 }: SelectPrimitive.Trigger.Props & {
-  size?: "sm" | "default" | "lg"
+  size?: "sm" | "default" | "lg";
 }) {
   return (
     <SelectPrimitive.Trigger
@@ -25,7 +25,7 @@ function SelectTrigger({
         size === "sm" &&
           "gap-1.5 px-[calc(--spacing(2.5)-1px)] py-[calc(--spacing(1)-1px)]",
         size === "lg" && "py-[calc(--spacing(2)-1px)]",
-        className
+        className,
       )}
       {...props}
     >
@@ -34,7 +34,7 @@ function SelectTrigger({
         <ChevronsUpDownIcon className="-me-1 size-4 opacity-72" />
       </SelectPrimitive.Icon>
     </SelectPrimitive.Trigger>
-  )
+  );
 }
 
 function SelectValue({ className, ...props }: SelectPrimitive.Value.Props) {
@@ -44,7 +44,7 @@ function SelectValue({ className, ...props }: SelectPrimitive.Value.Props) {
       className={cn("flex-1 truncate", className)}
       {...props}
     />
-  )
+  );
 }
 
 function SelectPopup({
@@ -54,8 +54,8 @@ function SelectPopup({
   alignItemWithTrigger = true,
   ...props
 }: SelectPrimitive.Popup.Props & {
-  sideOffset?: SelectPrimitive.Positioner.Props["sideOffset"]
-  alignItemWithTrigger?: SelectPrimitive.Positioner.Props["alignItemWithTrigger"]
+  sideOffset?: SelectPrimitive.Positioner.Props["sideOffset"];
+  alignItemWithTrigger?: SelectPrimitive.Positioner.Props["alignItemWithTrigger"];
 }) {
   return (
     <SelectPrimitive.Portal>
@@ -81,7 +81,7 @@ function SelectPopup({
               data-slot="select-list"
               className={cn(
                 "max-h-(--available-height) min-w-(--anchor-width) overflow-y-auto p-1",
-                className
+                className,
               )}
             >
               {children}
@@ -96,7 +96,7 @@ function SelectPopup({
         </SelectPrimitive.Popup>
       </SelectPrimitive.Positioner>
     </SelectPrimitive.Portal>
-  )
+  );
 }
 
 function SelectItem({
@@ -109,7 +109,7 @@ function SelectItem({
       data-slot="select-item"
       className={cn(
         "grid cursor-default grid-cols-[1rem_1fr] items-center gap-2 rounded-sm py-1 ps-2 pe-4 text-base outline-none in-data-[side=none]:min-w-[calc(var(--anchor-width)+1.25rem)] data-disabled:pointer-events-none data-disabled:opacity-64 data-highlighted:bg-accent data-highlighted:text-accent-foreground sm:text-sm [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
-        className
+        className,
       )}
       {...props}
     >
@@ -132,7 +132,7 @@ function SelectItem({
         {children}
       </SelectPrimitive.ItemText>
     </SelectPrimitive.Item>
-  )
+  );
 }
 
 function SelectSeparator({
@@ -145,11 +145,11 @@ function SelectSeparator({
       data-slot="select-separator"
       {...props}
     />
-  )
+  );
 }
 
 function SelectGroup(props: SelectPrimitive.Group.Props) {
-  return <SelectPrimitive.Group data-slot="select-group" {...props} />
+  return <SelectPrimitive.Group data-slot="select-group" {...props} />;
 }
 
 function SelectGroupLabel(props: SelectPrimitive.GroupLabel.Props) {
@@ -159,7 +159,7 @@ function SelectGroupLabel(props: SelectPrimitive.GroupLabel.Props) {
       data-slot="select-group-label"
       {...props}
     />
-  )
+  );
 }
 
 export {
@@ -172,4 +172,4 @@ export {
   SelectSeparator,
   SelectGroup,
   SelectGroupLabel,
-}
+};

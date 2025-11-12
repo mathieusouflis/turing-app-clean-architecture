@@ -1,6 +1,6 @@
-import { Fieldset as FieldsetPrimitive } from "@base-ui-components/react/fieldset"
+import { Fieldset as FieldsetPrimitive } from "@base-ui-components/react/fieldset";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 function Fieldset({ className, ...props }: FieldsetPrimitive.Root.Props) {
   return (
@@ -9,7 +9,7 @@ function Fieldset({ className, ...props }: FieldsetPrimitive.Root.Props) {
       className={cn("flex w-full max-w-64 flex-col gap-6", className)}
       {...props}
     />
-  )
+  );
 }
 function FieldsetLegend({
   className,
@@ -21,7 +21,7 @@ function FieldsetLegend({
       className={cn("font-semibold", className)}
       {...props}
     />
-  )
+  );
 }
 
-export { Fieldset, FieldsetLegend }
+export { Fieldset, FieldsetLegend };

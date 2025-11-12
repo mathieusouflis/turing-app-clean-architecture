@@ -1,6 +1,6 @@
-import { Meter as MeterPrimitive } from "@base-ui-components/react/meter"
+import { Meter as MeterPrimitive } from "@base-ui-components/react/meter";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 function Meter({ className, children, ...props }: MeterPrimitive.Root.Props) {
   return (
@@ -16,7 +16,7 @@ function Meter({ className, children, ...props }: MeterPrimitive.Root.Props) {
         </MeterTrack>
       )}
     </MeterPrimitive.Root>
-  )
+  );
 }
 
 function MeterLabel({ className, ...props }: MeterPrimitive.Label.Props) {
@@ -26,7 +26,7 @@ function MeterLabel({ className, ...props }: MeterPrimitive.Label.Props) {
       className={cn("text-sm font-medium", className)}
       {...props}
     />
-  )
+  );
 }
 
 function MeterTrack({ className, ...props }: MeterPrimitive.Track.Props) {
@@ -36,7 +36,7 @@ function MeterTrack({ className, ...props }: MeterPrimitive.Track.Props) {
       className={cn("block h-2 w-full overflow-hidden bg-input", className)}
       {...props}
     />
-  )
+  );
 }
 
 function MeterIndicator({
@@ -49,7 +49,7 @@ function MeterIndicator({
       className={cn("bg-primary transition-all duration-500", className)}
       {...props}
     />
-  )
+  );
 }
 
 function MeterValue({ className, ...props }: MeterPrimitive.Value.Props) {
@@ -59,7 +59,7 @@ function MeterValue({ className, ...props }: MeterPrimitive.Value.Props) {
       className={cn("text-sm tabular-nums", className)}
       {...props}
     />
-  )
+  );
 }
 
-export { Meter, MeterLabel, MeterTrack, MeterIndicator, MeterValue }
+export { Meter, MeterLabel, MeterTrack, MeterIndicator, MeterValue };
