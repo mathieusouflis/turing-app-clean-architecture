@@ -1,0 +1,8 @@
+services:
+  sampleproject:
+    image: sampleproject:latest
+    build:
+      dockerfile: ./dockerfile.dev
+    ports:
+      - "5173:5173"
+      - "8080:8080"
