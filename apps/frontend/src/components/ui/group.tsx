@@ -20,7 +20,7 @@ const groupVariants = cva(
     defaultVariants: {
       orientation: "horizontal",
     },
-  },
+  }
 );
 
 function Group({
@@ -55,7 +55,7 @@ function GroupText({
     "data-slot": "group-text",
     className: cn(
       "relative inline-flex items-center rounded-lg border border-border bg-muted bg-clip-padding px-[calc(--spacing(3)-1px)] text-sm font-medium whitespace-nowrap shadow-xs transition-shadow outline-none before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(var(--radius-lg)-1px)] before:shadow-[0_1px_--theme(--color-black/4%)] dark:bg-input/64 dark:before:shadow-[0_-1px_--theme(--color-white/8%)] [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
-      className,
+      className
     ),
   };
   return useRender({
@@ -77,7 +77,7 @@ function GroupSeparator({
       orientation={orientation}
       className={cn(
         "relative z-20 has-[+[data-slot=input-control]:focus-within,+[data-slot=select-trigger]:focus-visible+*,+[data-slot=number-field]:focus-within]:translate-x-px has-[+[data-slot=input-control]:focus-within,+[data-slot=select-trigger]:focus-visible+*,+[data-slot=number-field]:focus-within]:bg-ring [[data-slot=input-control]:focus-within+&,[data-slot=select-trigger]:focus-visible+*+&]:-translate-x-px [[data-slot=input-control]:focus-within+&,[data-slot=select-trigger]:focus-visible+*+&,[data-slot=number-field]:focus-within+&]:bg-ring",
-        className,
+        className
       )}
       {...props}
     />

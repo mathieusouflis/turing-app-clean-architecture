@@ -28,7 +28,7 @@ function AccordionTrigger({
         data-slot="accordion-trigger"
         className={cn(
           "flex flex-1 cursor-pointer items-start justify-between gap-4 rounded-md py-4 text-left text-sm font-medium transition-all outline-none focus-visible:ring-[3px] focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-64 [&[data-panel-open]>svg]:rotate-180",
-          className,
+          className
         )}
         {...props}
       >
