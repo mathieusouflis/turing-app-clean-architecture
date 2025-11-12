@@ -1,0 +1,6 @@
+{
+  "extension": ["ts"],
+  "spec": ["src/tests/**/*.test.ts"],
+  "timeout": 5000,
+  "recursive": true
+}
