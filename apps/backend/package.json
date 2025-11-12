@@ -11,7 +11,8 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "dev": "pnpm build && node dist/index.js",
+    "dev": "nodemon --watch 'src/**/*.ts' --exec 'pnpm build && node dist/index.js'",
+    "start": "pnpm build && node dist/index.js",
     "check-types": "tsc --noEmit"
   },
   "keywords": [],
@@ -23,6 +24,7 @@
   },
   "devDependencies": {
     "@types/node": "^24.10.0",
+    "nodemon": "^3.1.11",
     "typescript": "^5.9.3"
   }
 }
