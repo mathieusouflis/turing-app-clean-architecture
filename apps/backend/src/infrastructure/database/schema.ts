@@ -6,7 +6,8 @@ import { pgTable, uuid, text, integer, timestamp, jsonb } from "drizzle-orm/pg-c
  */
 export const tapes = pgTable("tapes", {
   id: uuid("id").primaryKey().defaultRandom(),
-  content: text("content").notNull(), // Tape content as string
+  content: text("content").notNull(), // Current tape content as string
+  initialContent: text("initial_content").notNull(), // Initial tape content for reset
   headPosition: integer("head_position").notNull().default(0), // Current head position
   currentState: text("current_state").notNull(), // Current machine state
   transitions: jsonb("transitions").$type<Array<{
