@@ -70,8 +70,18 @@ declare module "@tanstack/react-router" {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+<<<<<<< HEAD
   ProvidersRoute: ProvidersRoute,
 };
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>();
+=======
+  AboutRoute: AboutRoute,
+  PostsRoute: PostsRoute,
+  ProvidersRoute: ProvidersRoute,
+}
+export const routeTree = rootRouteImport
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()
+>>>>>>> 5c1fce6 (feat: Setup tanstack router and Shadcn)
