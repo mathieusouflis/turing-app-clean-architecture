@@ -47,3 +47,8 @@ mongo-data/
 backups/
 *.sql
 !init-scripts/*.sql
+
+
+.env
+.env.*
+!.env.*.example
