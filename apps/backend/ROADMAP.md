@@ -9,15 +9,6 @@
   - Entité avec read(), write(), moveLeft(), moveRight()
   - Gestion de la position de la tête
   - Reset de la bande
-  
-- ✅ **TuringMachine** (`turing-machine.ts`)
-  - Implémentation des règles de transition
-  - `executeStep()` : exécute une étape
-  - `executeSteps()` : exécute plusieurs étapes
-  - Gestion des états (A, HALT)
-  - Règles spécifiques machine unaire :
-    - A + _ → write 1, move right, stay A
-    - A + 1 → write 1, no move, HALT
 
 #### Infrastructure Layer (`src/infrastructure/`)
 - ✅ **Repository** (`database/repository.ts`)
@@ -71,59 +62,6 @@
 - ✅ État final : `"HALT"`
 - ✅ Comportement "no move" pour A+1→HALT
 
-### 📚 Documentation
-
-- ✅ README.md - Documentation complète
-- ✅ QUICK_START.md - Guide rapide
-- ✅ ARCHITECTURE.md - Explication architecture
-- ✅ TESTING.md - Guide de tests
-- ✅ test-api.js - Script de tests automatisés
-
----
-
-## ⚠️ Différences avec les Consignes
-
-### Technologies utilisées vs. consignes
-
-| Consigne | Implémenté | Raison |
-|----------|------------|--------|
-| MongoDB + Mongoose | PostgreSQL + pg | Architecture identique, PostgreSQL plus adapté |
-| Express | Fastify | Fastify plus moderne et performant |
-| Collection `tapes` | Table `tapes` | Même concept, même structure |
-
-**L'architecture reste identique** : Domain → Infrastructure → Application → Server
-
----
-
-## 🔄 À FAIRE (si besoin d'alignement avec consignes)
-
-### Option 1 : Migrer vers MongoDB (si requis)
-- [ ] Remplacer PostgreSQL par MongoDB
-- [ ] Utiliser Mongoose pour les schémas
-- [ ] Adapter le repository pour MongoDB
-- [ ] Mettre à jour les connexions
-
-### Option 2 : Migrer vers Express (si requis)
-- [ ] Remplacer Fastify par Express
-- [ ] Adapter les routes Express
-- [ ] Mettre à jour les middlewares
-
-### Option 3 : Garder l'implémentation actuelle
-- ✅ Architecture respectée
-- ✅ Toutes les routes implémentées
-- ✅ Fonctionnalités complètes
-- ✅ Code propre et maintenable
-
----
-
-## 🎁 BONUS (déjà implémentés)
-
-- ✅ Route `PUT /api/tapes/:id/run` - Exécution multiple
-- ✅ Route `PUT /api/tapes/:id/reset` - Réinitialisation
-- ✅ Health check `/ping`
-- ✅ Gestion d'erreurs complète
-- ✅ Tests automatisés
-- ✅ Documentation complète
 
 ---
 
@@ -154,22 +92,9 @@
 
 ---
 
-## 🚀 Prochaines Étapes (si nécessaire)
-
-1. **Décision technologie** : Garder PostgreSQL/Fastify ou migrer vers MongoDB/Express ?
 2. **Tests** : Ajouter tests unitaires si besoin
 3. **Déploiement** : Préparer Docker/CI si besoin
 4. **Frontend** : Connecter le frontend Zustand au backend
 
 ---
-
-## 📝 Notes
-
-- L'implémentation actuelle est **fonctionnelle et complète**
-- L'architecture respecte les principes Clean Architecture
-- Toutes les routes demandées sont implémentées
-- La machine unaire fonctionne selon le sujet
-- Seule différence : technologies (PostgreSQL/Fastify vs MongoDB/Express)
-
-**Recommandation** : Garder l'implémentation actuelle sauf si MongoDB/Express est explicitement requis.
 

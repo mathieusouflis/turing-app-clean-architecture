@@ -1,6 +1,6 @@
 # Turing Machine Backend - Machine d'Addition Unaire
 
-A clean architecture implementation of a unary addition Turing Machine backend using Fastify and PostgreSQL.
+A clean architecture implementation of a unary addition Turing Machine backend using Fastify, PostgreSQL, and Drizzle ORM.
 
 This backend implements a simple unary addition machine that transforms unary symbols (`_` = 1) according to specific transition rules.
 
@@ -54,7 +54,17 @@ export DATABASE_URL="postgresql://postgres:postgres@localhost:5432/turing_machin
 export PORT=8080
 ```
 
-4. **Build and run**:
+4. **Initialize database schema**:
+```bash
+# Push schema to database (creates tables)
+pnpm db:push
+
+# Or generate and run migrations
+pnpm db:generate
+pnpm db:migrate
+```
+
+5. **Build and run**:
 ```bash
 pnpm build
 pnpm dev
@@ -98,8 +108,10 @@ src/
 │
 ├── infrastructure/      # External concerns
 │   └── database/
-│       ├── repository.ts  # PostgreSQL repository
-│       └── schema.sql     # Database schema
+│       ├── schema.ts      # Drizzle ORM schema
+│       ├── client.ts      # Database client setup
+│       ├── repository.ts  # Repository implementation
+│       └── index.ts       # Database exports
 │
 ├── application/         # Use cases and controllers
 │   ├── use-cases/      # Business workflows
@@ -270,6 +282,7 @@ The tape is an array of cells. For the unary addition machine:
 - Ensure PostgreSQL is accessible
 - Check connection string format
 - Verify database `turing_machine` exists
+- Run `pnpm db:push` to create tables if schema is missing
 
 **404 errors?**
 - Verify tape ID exists
@@ -297,7 +310,8 @@ This project demonstrates:
 - Domain-Driven Design principles
 - TypeScript best practices
 - Fastify framework usage
-- PostgreSQL integration
+- Drizzle ORM integration
+- PostgreSQL database management
 - RESTful API design
 
 Perfect for learning how to structure a maintainable, testable backend application!
