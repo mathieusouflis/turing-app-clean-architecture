@@ -1,0 +1,15 @@
+name: "pre-merge"
+run-name: ${{ github.actor }} is running pre-merge checks
+on: pull_request
+jobs:
+  check-types:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: pnpm install
+      - name: Run type checks
+        run: pnpm check-types
+      - name: Build
+        run: pnpm build
