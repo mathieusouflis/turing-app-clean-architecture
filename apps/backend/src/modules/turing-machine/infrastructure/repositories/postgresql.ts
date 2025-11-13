@@ -6,8 +6,17 @@ import {
   turingMachine,
   TuringMachineRecord,
 } from "@/modules/index.schemas";
+import { ITuringMachineRepository } from "../interface";
+import { dbConfig } from "@/config/db.config";
 
-export class TuringMachineRepository extends PostgresClient {
+export class TuringMachineRepository
+  extends PostgresClient
+  implements ITuringMachineRepository
+{
+  constructor() {
+    super(dbConfig);
+  }
+
   async create(data: NewTuringMachineRecord): Promise<TuringMachineRecord> {
     const [record] = await this.db
       .insert(turingMachine)
@@ -28,9 +37,30 @@ export class TuringMachineRepository extends PostgresClient {
     return record;
   }
 
-  getAll() {}
+  async getAll(): Promise<TuringMachineRecord[]> {
+    const records = await this.db
+      .select({
+        ...getTableColumns(turingMachine),
+      })
+      .from(turingMachine)
+      .execute();
+    return records;
+  }
 
-  update() {}
+  async update(id: string, data: Partial<TuringMachineRecord>) {
+    await this.db
+      .update(turingMachine)
+      .set(data)
+      .where(eq(turingMachine.id, id))
+      .execute();
 
-  delete() {}
+    return this.get(id);
+  }
+
+  async delete(id: string) {
+    await this.db
+      .delete(turingMachine)
+      .where(eq(turingMachine.id, id))
+      .execute();
+  }
 }
