@@ -31,7 +31,7 @@ export function routesPlugin(fastify: FastifyInstance, ops: any, done: any) {
   );
 
   fastify.register(createController.registerRoutes, {
-    prefix: "/tapes",
+    prefix: "/turing-machines",
   });
 
   done();
