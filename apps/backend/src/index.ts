@@ -4,22 +4,30 @@
  */
 
 import { createServer } from "./server.js";
-
-const PORT = parseInt(process.env.PORT || "8080", 10);
-const HOST = process.env.HOST || "0.0.0.0";
-const DATABASE_URL = process.env.DATABASE_URL || "postgresql://user:password@localhost:5432/turing_db";
+import { validateEnv } from "./infrastructure/config/env.js";
+import { ConfigurationError } from "./domain/errors.js";
 
 async function start() {
   try {
+    // Validate environment variables
+    const config = validateEnv();
+
     // Create and configure server
-    const server = await createServer(DATABASE_URL);
+    const server = await createServer(config.DATABASE_URL);
 
     // Start listening
-    await server.listen({ port: PORT, host: HOST });
+    await server.listen({ port: config.PORT, host: config.HOST });
     
-    console.log(`Server listening at http://${HOST}:${PORT}`);
+    console.log(`Server listening at http://${config.HOST}:${config.PORT}`);
   } catch (error) {
-    console.error("Failed to start server:", error);
+    if (error instanceof ConfigurationError) {
+      console.error("Configuration error:", error.message);
+      if (error.context) {
+        console.error("Details:", JSON.stringify(error.context, null, 2));
+      }
+    } else {
+      console.error("Failed to start server:", error);
+    }
     process.exit(1);
   }
 }
