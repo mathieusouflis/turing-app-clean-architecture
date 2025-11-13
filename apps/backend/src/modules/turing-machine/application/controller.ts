@@ -8,6 +8,7 @@ import { DeleteUseCase } from "./use-cases/delete";
 import { GetByIdUseCase } from "./use-cases/get-by-id";
 import { ListUseCase } from "./use-cases/list";
 import { UpdateUseCase } from "./use-cases/update";
+import { StepUseCase } from "./use-cases/step";
 
 export class TuringMachineController {
   constructor(
@@ -15,6 +16,7 @@ export class TuringMachineController {
     private deleteUseCase: DeleteUseCase,
     private getByIdUseCase: GetByIdUseCase,
     private listUseCase: ListUseCase,
+    private stepUseCase: StepUseCase,
     private updateUseCase: UpdateUseCase,
   ) {}
 
@@ -58,7 +60,13 @@ export class TuringMachineController {
     reply.status(200).send(machines);
   };
 
-  private step = async (request: FastifyRequest, reply: FastifyReply) => {};
+  private step = async (request: FastifyRequest, reply: FastifyReply) => {
+    const { id } = request.params as { id: string };
+
+    const machine = await this.stepUseCase.execute(id);
+
+    reply.status(200).send(machine);
+  };
 
   private run = async (request: FastifyRequest, reply: FastifyReply) => {};
 
