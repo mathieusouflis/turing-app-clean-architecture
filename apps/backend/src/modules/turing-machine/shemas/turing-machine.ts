@@ -24,6 +24,16 @@ export const turingMachine = pgTable("turing_machine", {
       }>
     >()
     .notNull(),
+  rules: jsonb("rules")
+    .$type<
+      Array<{
+        state: string;
+        output: string;
+        direction: "left" | "right" | "stop";
+        nextState: string;
+      }>
+    >()
+    .notNull(),
   initialState: text("initial_state").notNull(),
   finalState: text("final_state").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
@@ -47,6 +57,14 @@ export const TuringMachineRecordSchema = z.object({
       nextState: z.string(),
     }),
   ),
+  rules: z.array(
+    z.object({
+      state: z.string(),
+      output: z.string(),
+      direction: z.enum(["left", "right", "stop"]),
+      nextState: z.string(),
+    }),
+  ),
   initialState: z.string(),
   finalState: z.string(),
   createdAt: z.date(),
@@ -67,8 +85,48 @@ export const NewTuringMachineRecordSchema = z.object({
       nextState: z.string(),
     }),
   ),
+  rules: z.array(
+    z.object({
+      state: z.string(),
+      output: z.string(),
+      direction: z.enum(["left", "right", "stop"]),
+      nextState: z.string(),
+    }),
+  ),
   initialState: z.string(),
   finalState: z.string(),
+  createdAt: z.date().optional(),
+  updatedAt: z.date().optional(),
+});
+
+export const UpdateTuringMachineRecordSchema = z.object({
+  id: z.string().uuid().optional(),
+  tape: z.string().optional(),
+  headPosition: z.number().optional(),
+  currentState: z.string().optional(),
+  transitions: z
+    .array(
+      z.object({
+        currentState: z.string(),
+        readSymbol: z.string(),
+        writeSymbol: z.string(),
+        moveDirection: z.enum(["left", "right", "stop"]),
+        nextState: z.string(),
+      }),
+    )
+    .optional(),
+  rules: z
+    .array(
+      z.object({
+        state: z.string(),
+        output: z.string(),
+        direction: z.enum(["left", "right", "stop"]),
+        nextState: z.string(),
+      }),
+    )
+    .optional(),
+  initialState: z.string().optional(),
+  finalState: z.string().optional(),
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
 });
