@@ -10,17 +10,12 @@ import * as schema from "./schema.js";
  * @returns Drizzle database instance
  */
 export function createDatabaseClient(connectionString: string) {
-  // Create postgres connection
   const queryClient = postgres(connectionString);
   
-  // Create Drizzle instance with schema
   const db = drizzle(queryClient, { schema });
   
   return db;
 }
 
-/**
- * Type for the database client
- */
 export type DatabaseClient = ReturnType<typeof createDatabaseClient>;
 

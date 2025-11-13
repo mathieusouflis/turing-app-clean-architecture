@@ -32,15 +32,8 @@ const envSchema = z.object({
     .default("development"),
 });
 
-/**
- * Validated environment configuration
- */
 export type EnvConfig = z.infer<typeof envSchema>;
 
-/**
- * Validates and returns environment configuration
- * Throws ConfigurationError if validation fails
- */
 export function validateEnv(): EnvConfig {
   try {
     return envSchema.parse({

@@ -26,7 +26,7 @@ describe("TuringMachine", () => {
     const executed = machine.executeStep();
     expect(executed).to.be.true;
     expect(machine.getCurrentState()).to.equal("B");
-    expect(tape.read()).to.equal("_"); // Moved right, now reading blank
+    expect(tape.read()).to.equal("_");
   });
 });
 

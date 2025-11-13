@@ -6,9 +6,7 @@
 
 import { Tape } from "./tape.js";
 
-/**
- * Transition rule for the Turing machine
- */
+
 export interface Transition {
   currentState: string;
   readSymbol: string;
@@ -44,51 +42,42 @@ export class TuringMachine {
     this.finalStates = new Set(finalStates);
   }
 
-  /**
-   * Gets the current state
-   */
+  
   getCurrentState(): string {
     return this.currentState;
   }
 
-  /**
-   * Gets the tape
-   */
+  
   getTape(): Tape {
     return this.tape;
   }
 
-  /**
-   * Checks if the machine is in a final state
-   */
+  
   isInFinalState(): boolean {
     return this.finalStates.has(this.currentState);
   }
 
-  /**
-   * Executes a single step of the machine
-   * @returns true if step was executed, false if machine is halted
-   */
+  
   executeStep(): boolean {
-    // Check if already in final state
+    
     if (this.isInFinalState()) {
       return false;
     }
 
-    // Read current symbol
+    
     const readSymbol = this.tape.read();
 
-    // Find matching transition
+    
     const transition = this.transitions.find(
       (t) => t.currentState === this.currentState && t.readSymbol === readSymbol
     );
 
     if (!transition) {
-      // No transition found - machine halts
+      
       return false;
     }
 
-    // Execute transition: write, move, change state
+    
     this.tape.write(transition.writeSymbol);
 
     if (transition.moveDirection === "L") {
@@ -96,7 +85,7 @@ export class TuringMachine {
     } else if (transition.moveDirection === "R") {
       this.tape.moveRight();
     }
-    // If direction is neither L nor R, don't move (for "no move" behavior)
+    
 
     this.currentState = transition.nextState;
 
@@ -126,23 +115,19 @@ export class TuringMachine {
     this.currentState = this.initialState;
   }
 
-  /**
-   * Gets all transitions
-   */
+  
+
+
   getTransitions(): Transition[] {
-    return [...this.transitions]; // Return defensive copy
+    return [...this.transitions]; 
   }
 
-  /**
-   * Gets initial state
-   */
+  
   getInitialState(): string {
     return this.initialState;
   }
 
-  /**
-   * Gets final states
-   */
+  
   getFinalStates(): string[] {
     return Array.from(this.finalStates);
   }

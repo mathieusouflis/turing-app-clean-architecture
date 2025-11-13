@@ -18,10 +18,7 @@ export class Tape {
     this.headPosition = Math.max(0, headPosition);
   }
 
-  /**
-   * Reads the symbol at the current head position
-   * Returns blank "_" if position is out of bounds
-   */
+  
   read(): string {
     if (this.headPosition < 0 || this.headPosition >= this.cells.length) {
       return "_";
@@ -29,54 +26,39 @@ export class Tape {
     return this.cells[this.headPosition] || "_";
   }
 
-  /**
-   * Writes a symbol at the current head position
-   * Expands the tape if necessary
-   */
+  
   write(symbol: string): void {
-    // Expand tape if head is beyond current bounds
     while (this.headPosition >= this.cells.length) {
       this.cells.push("_");
     }
     this.cells[this.headPosition] = symbol;
   }
 
-  /**
-   * Moves the head left (decrements position)
-   * Prevents negative positions
-   */
+  
   moveLeft(): void {
     if (this.headPosition > 0) {
       this.headPosition--;
     }
   }
 
-  /**
-   * Moves the head right (increments position)
-   */
+  
   moveRight(): void {
     this.headPosition++;
   }
 
-  /**
-   * Gets the current head position
-   */
+  
   getHeadPosition(): number {
     return this.headPosition;
   }
 
-  /**
-   * Gets the tape content as a string
-   */
+
   getContent(): string {
     return this.cells.join("");
   }
 
-  /**
-   * Gets the tape content as an array
-   */
+  
   getCells(): string[] {
-    return [...this.cells]; // Return defensive copy
+    return [...this.cells]; 
   }
 
   /**
@@ -89,9 +71,7 @@ export class Tape {
     this.headPosition = Math.max(0, headPosition);
   }
 
-  /**
-   * Creates a copy of the tape (for immutability patterns)
-   */
+  
   clone(): Tape {
     const cloned = new Tape(this.getContent(), this.headPosition);
     return cloned;

@@ -14,9 +14,7 @@ export class TapeRepository {
    * Creates the tapes table if it doesn't exist
    */
   async initialize(): Promise<void> {
-    // Drizzle migrations handle schema creation
-    // This method can be used for additional setup if needed
-    // For now, use `pnpm db:push` or `pnpm db:migrate` to create tables
+
   }
 
   /**

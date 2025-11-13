@@ -20,21 +20,16 @@ import { TapesController } from "./application/controllers/tapes-controller.js";
  * @returns Configured Fastify instance
  */
 export async function createServer(databaseUrl: string): Promise<FastifyInstance> {
-  // Create Fastify instance with logging
   const server = fastify({
     logger: true,
   });
 
-  // Create database client
   const db = createDatabaseClient(databaseUrl);
   
-  // Initialize repository
   const repository = new TapeRepository(db);
   
-  // Note: Schema initialization should be done via migrations
   // Run `pnpm db:push` or `pnpm db:migrate` to create tables
 
-  // Create use cases (inject repository dependency)
   const createTapeUseCase = new CreateTapeUseCase(repository);
   const getTapeUseCase = new GetTapeUseCase(repository);
   const executeStepUseCase = new ExecuteStepUseCase(repository);
@@ -42,7 +37,6 @@ export async function createServer(databaseUrl: string): Promise<FastifyInstance
   const resetTapeUseCase = new ResetTapeUseCase(repository);
   const deleteTapeUseCase = new DeleteTapeUseCase(repository);
 
-  // Create controller (inject all use cases)
   const tapesController = new TapesController(
     createTapeUseCase,
     getTapeUseCase,
@@ -52,10 +46,8 @@ export async function createServer(databaseUrl: string): Promise<FastifyInstance
     deleteTapeUseCase
   );
 
-  // Register routes
   tapesController.registerRoutes(server);
 
-  // Health check endpoint - checks database connectivity
   server.get("/health", {
     schema: {
       description: "Health check endpoint",
@@ -95,7 +87,6 @@ export async function createServer(databaseUrl: string): Promise<FastifyInstance
     const startTime = Date.now();
 
     try {
-      // Test database connection with a simple query using drizzle's sql helper
       await db.execute(sql`SELECT 1`);
       const responseTime = Date.now() - startTime;
 
@@ -122,7 +113,6 @@ export async function createServer(databaseUrl: string): Promise<FastifyInstance
     }
   });
 
-  // Simple ping endpoint for basic connectivity checks
   server.get("/ping", {
     schema: {
       description: "Simple ping endpoint",

@@ -13,8 +13,6 @@ export class CreateTapeUseCase {
    * Default: tape "______1", state "A", final "HALT"
    */
   async execute(): Promise<{ id: string }> {
-    // Default unary machine configuration
-    // Note: Machine halts when no matching transition is found
     const defaultTransitions = [
       { currentState: "A", readSymbol: "_", writeSymbol: "_", moveDirection: "R" as const, nextState: "A" },
       { currentState: "A", readSymbol: "1", writeSymbol: "1", moveDirection: "R" as const, nextState: "B" },

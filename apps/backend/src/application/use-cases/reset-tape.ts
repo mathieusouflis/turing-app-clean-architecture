@@ -23,7 +23,7 @@ export class ResetTapeUseCase {
       return null;
     }
 
-    // Reconstruct domain objects
+
     const tape = new Tape(record.content, record.headPosition);
     const machine = new TuringMachine(
       tape,
@@ -32,10 +32,8 @@ export class ResetTapeUseCase {
       record.finalStates
     );
 
-    // Reset to initial state using stored initialContent
     machine.reset(record.initialContent, 0);
 
-    // Save updated state back to database
     const updated = await this.repository.update(id, {
       content: tape.getContent(),
       headPosition: tape.getHeadPosition(),

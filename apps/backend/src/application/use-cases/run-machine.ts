@@ -31,7 +31,7 @@ export class RunMachineUseCase {
       return null;
     }
 
-    // Reconstruct domain objects
+
     const tape = new Tape(record.content, record.headPosition);
     const machine = new TuringMachine(
       tape,
@@ -40,11 +40,9 @@ export class RunMachineUseCase {
       record.finalStates
     );
 
-    // Execute multiple steps
     const maxSteps = options.maxSteps ?? 1000;
     const stepsExecuted = machine.run(maxSteps);
 
-    // Save updated state back to database
     const updated = await this.repository.update(id, {
       content: tape.getContent(),
       headPosition: tape.getHeadPosition(),

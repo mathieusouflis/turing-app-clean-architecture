@@ -17,13 +17,12 @@ export class ExecuteStepUseCase {
    * @returns Updated tape record or null if not found
    */
   async execute(id: string): Promise<TapeRecord | null> {
-    // Load tape from database
     const record = await this.repository.findById(id);
     if (!record) {
       return null;
     }
 
-    // Reconstruct domain objects
+
     const tape = new Tape(record.content, record.headPosition);
     const machine = new TuringMachine(
       tape,
@@ -32,10 +31,8 @@ export class ExecuteStepUseCase {
       record.finalStates
     );
 
-    // Execute one step
     machine.executeStep();
 
-    // Save updated state back to database
     const updated = await this.repository.update(id, {
       content: tape.getContent(),
       headPosition: tape.getHeadPosition(),

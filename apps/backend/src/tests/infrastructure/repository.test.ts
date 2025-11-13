@@ -17,7 +17,6 @@ describe("TapeRepository", () => {
 
   beforeEach(() => {
     sandbox = createSandbox();
-    // Mock database client with chainable methods
     mockDb = {
       insert: sandbox.stub().returnsThis(),
       values: sandbox.stub().returnsThis(),
@@ -50,6 +49,7 @@ describe("TapeRepository", () => {
 
     const createdRecord: TapeRecord = {
       ...newTape,
+      headPosition: newTape.headPosition ?? 0,
       id: "test-id",
       createdAt: new Date(),
       updatedAt: new Date(),
