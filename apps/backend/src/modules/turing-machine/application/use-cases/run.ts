@@ -7,9 +7,9 @@ export class RunUseCase {
   constructor(private stepUseCase: StepUseCase) {}
 
   async execute(id: string): Promise<TuringMachineRecord> {
-    let isMachineHalted = true;
-    let machine: TuringMachineRecord = await this.stepUseCase.execute(id);
+    let isMachineHalted = false;
 
+    let machine: TuringMachineRecord = await this.stepUseCase.execute(id);
     while (!isMachineHalted) {
       let tape = new TapeDomain(machine.tape);
       let turingMachine = new TuringMachineDomain(
@@ -17,8 +17,16 @@ export class RunUseCase {
         machine.rules,
         machine.headPosition,
         machine.currentState,
+        machine.currentState,
+        ...(machine.transitions && machine.transitions.length > 0
+          ? [
+              machine.transitions[0].writeSymbol,
+              machine.transitions[0].moveDirection,
+            ]
+          : []),
       );
       isMachineHalted = turingMachine.isHalted();
+      console.log(isMachineHalted);
       machine = await this.stepUseCase.execute(id);
     }
 
