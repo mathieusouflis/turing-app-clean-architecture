@@ -1,10 +1,10 @@
 import dotenv from "dotenv";
 import path from "path";
+import { createServer } from "./server.js";
 
+// Load environment variables
 const envPath = path.resolve(__dirname, "../../../.env.dev");
 dotenv.config({ path: envPath });
-
-import { createServer } from "./server.js";
 
 const PORT = parseInt(process.env.PORT || "8080", 10);
 const HOST = process.env.HOST || "0.0.0.0";

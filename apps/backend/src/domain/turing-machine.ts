@@ -147,4 +147,3 @@ export class TuringMachine {
     return Array.from(this.finalStates);
   }
 }
-
