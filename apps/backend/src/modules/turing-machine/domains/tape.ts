@@ -12,7 +12,7 @@ export class TapeDomain {
   }
 
   public getFormattedTape(): TapeType {
-    return this.tape.join(" ");
+    return this.tape.join("");
   }
 
   public getCell(position: number): string {
