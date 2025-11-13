@@ -1,15 +1,20 @@
 import fastify from "fastify";
 import dotenv from "dotenv";
 import path from "path";
+import { routesPlugin } from "./utils/routes";
 
 const envPath = path.resolve(__dirname, "../../../../.env.dev");
 dotenv.config({ path: envPath });
 
 const server = fastify();
 
-server.get("/ping", async (request, reply) => {
-  return "pong\n";
+server.register(routesPlugin, {
+  prefix: "/api",
 });
+
+// server.get("/ping", async (request, reply) => {
+//   return "pong\n";
+// });
 
 const PORT = process.env.BACKEND_PORT || 8080;
 
