@@ -2,11 +2,13 @@ import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { CreateUseCase } from "./use-cases/create";
 import { NewTuringMachineRecordSchema } from "../shemas/turing-machine";
 import { DeleteUseCase } from "./use-cases/delete";
+import { GetByIdUseCase } from "./use-cases/get-by-id";
 
 export class TuringMachineController {
   constructor(
     private createUseCase: CreateUseCase,
     private deleteUseCase: DeleteUseCase,
+    private getByIdUseCase: GetByIdUseCase,
   ) {}
 
   public registerRoutes = (fastify: FastifyInstance, ops: any, done: any) => {
@@ -34,7 +36,13 @@ export class TuringMachineController {
     reply.status(201).send(machine);
   };
 
-  private getById = async (request: FastifyRequest, reply: FastifyReply) => {};
+  private getById = async (request: FastifyRequest, reply: FastifyReply) => {
+    const { id } = request.params as { id: string };
+
+    const machine = await this.getByIdUseCase.execute(id);
+
+    reply.status(200).send(machine);
+  };
 
   private list = async (request: FastifyRequest, reply: FastifyReply) => {};
 
