@@ -26,14 +26,17 @@ export class TuringMachineDomain<T extends string[]> {
     rules: TuringRules<T>,
     head: number = 0,
     state?: string,
+    writeSymbol?: string,
+    readSymbol?: string,
+    moveDirection?: Direction,
   ) {
     this.tape = tape;
     this.rules = rules;
     this.head = head;
     this.state = state ?? rules[0].state;
-    this.readSymbol = "";
-    this.writeSymbol = "";
-    this.moveDirection = "stop";
+    this.readSymbol = readSymbol ?? rules[0].input;
+    this.writeSymbol = writeSymbol ?? rules[0].output;
+    this.moveDirection = moveDirection ?? rules[0].direction;
   }
 
   public step() {
@@ -49,7 +52,7 @@ export class TuringMachineDomain<T extends string[]> {
   }
 
   public isHalted(): boolean {
-    return this.state === "stop";
+    return this.moveDirection === "stop";
   }
 
   public getMachineState() {
