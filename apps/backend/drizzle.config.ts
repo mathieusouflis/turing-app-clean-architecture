@@ -10,7 +10,7 @@ dotenv.config({ path: envPath });
  * Generates SQL migrations from schema changes
  */
 export default defineConfig({
-  schema: "./src/infrastructure/database/schema.ts",
+  schema: "./src/modules/index.schemas.ts",
   out: "./drizzle",
   dialect: "postgresql",
   dbCredentials: {
