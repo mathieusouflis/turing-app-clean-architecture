@@ -12,9 +12,19 @@ server.register(routesPlugin, {
   prefix: "/api",
 });
 
-// server.get("/ping", async (request, reply) => {
-//   return "pong\n";
-// });
+server.get("/ping", async (request, reply) => {
+  return "pong\n";
+});
+
+server.addHook("onRequest", async (request, reply) => {
+  console.info("[INFO]", request.method, request.url);
+});
+
+server.addHook("onError", async (request, reply, error) => {
+  throw new Error(error.message, {
+    cause: error.cause,
+  });
+});
 
 const PORT = process.env.BACKEND_PORT || 8080;
 
