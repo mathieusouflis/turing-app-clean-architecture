@@ -180,7 +180,7 @@ The `createServer()` function:
 
 #### `index.ts` - Entry Point
 
-- Reads environment variables (PORT, HOST, DATABASE_URL)
+- Reads environment variables (PORT, HOST, DB_URL)
 - Calls `createServer()`
 - Starts listening on specified port
 - Handles startup errors gracefully
@@ -270,7 +270,6 @@ The `createServer()` function:
 
 ## Environment Variables
 
-- `DATABASE_URL`: PostgreSQL connection string (default: `postgresql://postgres:postgres@localhost:5432/turing_machine`)
+- `DB_URL`: PostgreSQL connection string (default: `postgresql://postgres:postgres@localhost:5432/turing_machine`)
 - `PORT`: Server port (default: `8080`)
 - `HOST`: Server host (default: `0.0.0.0`)
-

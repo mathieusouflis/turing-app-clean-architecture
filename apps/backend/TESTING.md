@@ -19,8 +19,8 @@ This guide explains how to test the Turing Machine backend at different levels.
 ```bash
 # Using Docker
 docker run --name turing-postgres \
-  -e POSTGRES_PASSWORD=postgres \
-  -e POSTGRES_DB=turing_machine \
+  -e DB_PASSWORD=postgres \
+  -e DB_NAME=turing_machine \
   -p 5432:5432 \
   -d postgres:15
 
@@ -29,7 +29,7 @@ docker run --name turing-postgres \
 
 2. **Set Environment Variable** (optional if using defaults):
 ```bash
-export DATABASE_URL="postgresql://postgres:postgres@localhost:5432/turing_machine"
+export DB_URL="postgresql://postgres:postgres@localhost:5432/turing_machine"
 ```
 
 3. **Build and Start Server**:
@@ -644,7 +644,7 @@ import { promisify } from "util";
 const execAsync = promisify(exec);
 
 export async function setupTestDatabase() {
-  process.env.DATABASE_URL = "postgresql://postgres:postgres@localhost:5432/turing_machine_test";
+  process.env.DB_URL = "postgresql://postgres:postgres@localhost:5432/turing_machine_test";
   // Optionally run migrations or seed data
 }
 
@@ -695,4 +695,3 @@ const tape = new Tape("aba", 0);
 - Head at boundary
 - No matching transitions
 - Infinite loop detection (max steps)
-

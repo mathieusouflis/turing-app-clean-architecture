@@ -8,7 +8,7 @@
     "db:start": "docker compose -f docker-compose.dev.yaml --env-file .env.dev up -d",
     "db:stop": "docker compose -f docker-compose.dev.yaml down",
     "db:logs": "docker compose -f docker-compose.dev.yaml logs -f",
-    "db:shell": "docker compose -f docker-compose.dev.yaml exec db psql -U ${POSTGRES_USER:-root} -d ${POSTGRES_DB:-database}",
+    "db:shell": "docker compose -f docker-compose.dev.yaml exec db psql -U ${DB_USER:-root} -d ${DB_NAME:-database}",
     "docker:prod": "docker compose -f docker-compose.prod.yaml --env-file .env.prod up --build -d",
     "docker:prod:down": "docker compose -f docker-compose.prod.yaml down",
     "docker:prod:logs": "docker compose -f docker-compose.prod.yaml logs -f",
