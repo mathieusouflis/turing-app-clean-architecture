@@ -2,8 +2,7 @@ import dotenv from "dotenv";
 import path from "path";
 import { createServer } from "./server.js";
 
-// Load environment variables
-const envPath = path.resolve(__dirname, "../../../.env.dev");
+const envPath = path.resolve(__dirname, "../../../../.env.dev");
 dotenv.config({ path: envPath });
 
 const PORT = parseInt(process.env.PORT || "8080", 10);
