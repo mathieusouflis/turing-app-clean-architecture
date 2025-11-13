@@ -9,26 +9,26 @@ let postgresClient: ReturnType<typeof postgres> | null = null;
 
 export class PostgresClient {
   public db: any;
-  private username: string;
+  private user: string;
   private password: string;
   private host: string;
   private port: number;
-  private bddName: string;
+  private databaseName: string;
   private connectionString: string;
 
-  constructor(
-    username: string,
-    password: string,
-    host: string,
-    port: number,
-    bddName: string,
-  ) {
-    this.username = username;
-    this.password = password;
-    this.host = host;
-    this.port = port;
-    this.bddName = bddName;
-    this.connectionString = `postgresql://${this.username}:${this.password}@${this.host}:${this.port}/${this.bddName}`;
+  constructor(config: {
+    user: string;
+    password: string;
+    host: string;
+    port: number;
+    databaseName: string;
+  }) {
+    this.user = config.user;
+    this.password = config.password;
+    this.host = config.host;
+    this.port = config.port;
+    this.databaseName = config.databaseName;
+    this.connectionString = `postgresql://${this.user}:${this.password}@${this.host}:${this.port}/${this.databaseName}`;
     this.initialise();
   }
   initialise() {
