@@ -1,9 +1,13 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { CreateUseCase } from "./use-cases/create";
-import { NewTuringMachineRecordSchema } from "../shemas/turing-machine";
+import {
+  NewTuringMachineRecordSchema,
+  UpdateTuringMachineRecordSchema,
+} from "../shemas/turing-machine";
 import { DeleteUseCase } from "./use-cases/delete";
 import { GetByIdUseCase } from "./use-cases/get-by-id";
 import { ListUseCase } from "./use-cases/list";
+import { UpdateUseCase } from "./use-cases/update";
 
 export class TuringMachineController {
   constructor(
@@ -11,6 +15,7 @@ export class TuringMachineController {
     private deleteUseCase: DeleteUseCase,
     private getByIdUseCase: GetByIdUseCase,
     private listUseCase: ListUseCase,
+    private updateUseCase: UpdateUseCase,
   ) {}
 
   public registerRoutes = (fastify: FastifyInstance, ops: any, done: any) => {
@@ -19,6 +24,7 @@ export class TuringMachineController {
     fastify.get("/", this.list);
     fastify.put("/:id/step", this.step);
     fastify.put("/:id/run", this.run);
+    fastify.put("/:id", this.update);
     fastify.delete("/:id", this.delete);
 
     done();
@@ -55,6 +61,22 @@ export class TuringMachineController {
   private step = async (request: FastifyRequest, reply: FastifyReply) => {};
 
   private run = async (request: FastifyRequest, reply: FastifyReply) => {};
+
+  private update = async (request: FastifyRequest, reply: FastifyReply) => {
+    const { id } = request.params as { id: string };
+    const data = request.body;
+
+    const dataParsed = UpdateTuringMachineRecordSchema.safeParse(data);
+
+    if (!dataParsed.success) {
+      reply.status(400).send({ error: dataParsed.error.message });
+      return;
+    }
+
+    const machine = await this.updateUseCase.execute(id, dataParsed.data);
+
+    reply.status(200).send(machine);
+  };
 
   private delete = async (request: FastifyRequest, reply: FastifyReply) => {
     const { id } = request.params as { id: string };
