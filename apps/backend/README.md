@@ -42,15 +42,15 @@ pnpm install
 2. **Start PostgreSQL** (using Docker):
 ```bash
 docker run --name turing-postgres \
-  -e POSTGRES_PASSWORD=postgres \
-  -e POSTGRES_DB=turing_machine \
+  -e DB_PASSWORD=postgres \
+  -e DB_NAME=turing_machine \
   -p 5432:5432 \
   -d postgres:15
 ```
 
 3. **Configure environment** (optional):
 ```bash
-export DATABASE_URL="postgresql://postgres:postgres@localhost:5432/turing_machine"
+export DB_URL="postgresql://postgres:postgres@localhost:5432/turing_machine"
 export PORT=8080
 ```
 
@@ -159,7 +159,7 @@ See [ARCHITECTURE.md](./ARCHITECTURE.md) for detailed explanation.
 
 ### Environment Variables
 
-- `DATABASE_URL`: PostgreSQL connection string
+- `DB_URL`: PostgreSQL connection string
   - Default: `postgresql://postgres:postgres@localhost:5432/turing_machine`
 - `PORT`: Server port
   - Default: `8080`
@@ -275,7 +275,7 @@ The tape is an array of cells. For the unary addition machine:
 
 **Server won't start?**
 - Check PostgreSQL is running: `docker ps | grep postgres`
-- Verify DATABASE_URL is correct
+- Verify DB_URL is correct
 - Check port 8080 is available
 
 **Database connection errors?**
@@ -315,4 +315,3 @@ This project demonstrates:
 - RESTful API design
 
 Perfect for learning how to structure a maintainable, testable backend application!
-
