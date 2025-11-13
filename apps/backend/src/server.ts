@@ -4,6 +4,7 @@
  */
 
 import fastify, { type FastifyInstance } from "fastify";
+import { sql } from "drizzle-orm";
 import { createDatabaseClient, TapeRepository } from "./infrastructure/database/index.js";
 import { CreateTapeUseCase } from "./application/use-cases/create-tape.js";
 import { GetTapeUseCase } from "./application/use-cases/get-tape.js";
@@ -54,8 +55,85 @@ export async function createServer(databaseUrl: string): Promise<FastifyInstance
   // Register routes
   tapesController.registerRoutes(server);
 
-  // Health check route
-  server.get("/ping", async () => {
+  // Health check endpoint - checks database connectivity
+  server.get("/health", {
+    schema: {
+      description: "Health check endpoint",
+      tags: ["health"],
+      response: {
+        200: {
+          type: "object",
+          properties: {
+            status: { type: "string" },
+            timestamp: { type: "string", format: "date-time" },
+            database: {
+              type: "object",
+              properties: {
+                status: { type: "string" },
+                responseTime: { type: "number" },
+              },
+            },
+          },
+        },
+        503: {
+          type: "object",
+          properties: {
+            status: { type: "string" },
+            timestamp: { type: "string", format: "date-time" },
+            database: {
+              type: "object",
+              properties: {
+                status: { type: "string" },
+                error: { type: "string" },
+              },
+            },
+          },
+        },
+      },
+    },
+  }, async (request, reply) => {
+    const startTime = Date.now();
+
+    try {
+      // Test database connection with a simple query using drizzle's sql helper
+      await db.execute(sql`SELECT 1`);
+      const responseTime = Date.now() - startTime;
+
+      return {
+        status: "healthy",
+        timestamp: new Date().toISOString(),
+        database: {
+          status: "connected",
+          responseTime,
+        },
+      };
+    } catch (error) {
+      const dbError = error instanceof Error ? error.message : "Unknown database error";
+
+      reply.code(503);
+      return {
+        status: "unhealthy",
+        timestamp: new Date().toISOString(),
+        database: {
+          status: "disconnected",
+          error: dbError,
+        },
+      };
+    }
+  });
+
+  // Simple ping endpoint for basic connectivity checks
+  server.get("/ping", {
+    schema: {
+      description: "Simple ping endpoint",
+      tags: ["health"],
+      response: {
+        200: {
+          type: "string",
+        },
+      },
+    },
+  }, async () => {
     return "pong\n";
   });
 
