@@ -11,8 +11,8 @@ pnpm install
 2. **Start PostgreSQL** (using Docker):
 ```bash
 docker run --name turing-postgres \
-  -e POSTGRES_PASSWORD=postgres \
-  -e POSTGRES_DB=turing_machine \
+  -e DB_PASSWORD=postgres \
+  -e DB_NAME=turing_machine \
   -p 5432:5432 \
   -d postgres:15
 ```
@@ -191,8 +191,8 @@ curl -X DELETE http://localhost:8080/api/tapes/$TAPE_ID
 
 **Database connection error?**
 - Check PostgreSQL is running: `docker ps | grep postgres`
-- Check connection string: `echo $DATABASE_URL`
-- Test connection: `psql $DATABASE_URL -c "SELECT 1"`
+- Check connection string: `echo $DB_URL`
+- Test connection: `psql $DB_URL -c "SELECT 1"`
 
 **404 Not Found?**
 - Verify the tape ID exists: `curl http://localhost:8080/api/tapes/{ID}`
@@ -201,4 +201,3 @@ curl -X DELETE http://localhost:8080/api/tapes/$TAPE_ID
 **500 Internal Server Error?**
 - Check server logs for error messages
 - Verify database schema was created (check PostgreSQL logs)
-
