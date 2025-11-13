@@ -1,13 +1,14 @@
 type TapeType = string;
 
 export class TapeDomain {
-  private tape: TapeType[];
+  private tape: string[];
+
   constructor(tape: TapeType) {
     this.tape = tape.split("");
   }
 
-  public getTape(): TapeType[] {
-    return this.tape;
+  public getTape(): string[] {
+    return [...this.tape];
   }
 
   public getFormattedTape(): TapeType {
@@ -15,16 +16,33 @@ export class TapeDomain {
   }
 
   public getCell(position: number): string {
-    if (position < 0 || position >= this.tape.length) {
-      throw new Error("Invalid position");
-    }
+    this.validatePosition(position);
     return this.tape[position];
   }
 
-  public write(position: number, value: string) {
-    if (position < 0 || position >= this.tape.length) {
-      throw new Error("Invalid position");
+  public write(position: number, value: string): void {
+    this.validatePosition(position);
+
+    if (value.length !== 1) {
+      throw new Error("Value must be a single character");
     }
+
     this.tape[position] = value;
+  }
+
+  public getLength(): number {
+    return this.tape.length;
+  }
+
+  private validatePosition(position: number): void {
+    if (!Number.isInteger(position)) {
+      throw new Error("Position must be an integer");
+    }
+
+    if (position < 0 || position >= this.tape.length) {
+      throw new Error(
+        `Invalid position: ${position}. Valid range is 0-${this.tape.length - 1}`,
+      );
+    }
   }
 }
