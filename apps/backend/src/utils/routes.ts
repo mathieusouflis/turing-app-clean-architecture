@@ -2,6 +2,7 @@ import { TuringMachineController } from "@/modules/turing-machine/application/co
 import { CreateUseCase } from "@/modules/turing-machine/application/use-cases/create";
 import { DeleteUseCase } from "@/modules/turing-machine/application/use-cases/delete";
 import { GetByIdUseCase } from "@/modules/turing-machine/application/use-cases/get-by-id";
+import { ListUseCase } from "@/modules/turing-machine/application/use-cases/list";
 import { TuringMachineRepository } from "@/modules/turing-machine/infrastructure/repositories/postgresql";
 import { FastifyInstance } from "fastify";
 
@@ -11,11 +12,13 @@ export function routesPlugin(fastify: FastifyInstance, ops: any, done: any) {
   const createUseCase = new CreateUseCase(repository);
   const deleteUseCase = new DeleteUseCase(repository);
   const getByIdUseCase = new GetByIdUseCase(repository);
+  const listUseCase = new ListUseCase(repository);
 
   const createController = new TuringMachineController(
     createUseCase,
     deleteUseCase,
     getByIdUseCase,
+    listUseCase,
   );
 
   fastify.register(createController.registerRoutes, {
