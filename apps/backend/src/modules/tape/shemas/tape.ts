@@ -13,10 +13,10 @@ import {
  */
 export const tapes = pgTable("tapes", {
   id: uuid("id").primaryKey().defaultRandom(),
-  content: text("content").notNull(), // Current tape content as string
-  initialContent: text("initial_content").notNull(), // Initial tape content for reset
-  headPosition: integer("head_position").notNull().default(0), // Current head position
-  currentState: text("current_state").notNull(), // Current machine state
+  content: text("content").notNull(), 
+  initialContent: text("initial_content").notNull(), 
+  headPosition: integer("head_position").notNull().default(0), 
+  currentState: text("current_state").notNull(), 
   transitions: jsonb("transitions")
     .$type<
       Array<{
@@ -27,9 +27,9 @@ export const tapes = pgTable("tapes", {
         nextState: string;
       }>
     >()
-    .notNull(), // Array of transition rules
-  initialState: text("initial_state").notNull(), // Starting state
-  finalStates: text("final_states").array().notNull(), // Array of final states
+    .notNull(), 
+  initialState: text("initial_state").notNull(), 
+  finalStates: text("final_states").array().notNull(), 
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });

@@ -21,9 +21,32 @@ export class TapeRepository extends PostgresClient {
     return record;
   }
 
-  getAll() {}
+  async getAll(): Promise<TapeRecord[]> {
+    const records = await this.db
+      .select({
+        ...getTableColumns(tapes),
+      })
+      .from(tapes)
+      .execute();
+    return records;
+  }
 
-  update() {}
+  async update(
+    id: string,
+    data: Partial<Omit<TapeRecord, "id" | "createdAt">>,
+  ): Promise<TapeRecord> {
+    const [record] = await this.db
+      .update(tapes)
+      .set({
+        ...data,
+        updatedAt: new Date(),
+      })
+      .where(eq(tapes.id, id))
+      .returning();
+    return record;
+  }
 
-  delete() {}
+  async delete(id: string): Promise<void> {
+    await this.db.delete(tapes).where(eq(tapes.id, id)).execute();
+  }
 }
