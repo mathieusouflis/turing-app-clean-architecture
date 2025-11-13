@@ -5,7 +5,7 @@ type TapeType = InstanceType<typeof TapeDomain>;
 type TuringRules<T extends string[]> = {
   state: T[number];
   output: string;
-  direction: "left" | "right";
+  direction: "left" | "right" | "stop";
   nextState: T[number];
 }[];
 
@@ -47,6 +47,15 @@ export class TuringMachineDomain<T extends string[]> {
   private move() {
     const rule = this.getCurrentRule();
     if (!rule) return;
-    this.head += rule.direction === "right" ? 1 : -1;
+    switch (rule.direction) {
+      case "left":
+        this.head -= 1;
+        break;
+      case "right":
+        this.head += 1;
+        break;
+      case "stop":
+        break;
+    }
   }
 }
