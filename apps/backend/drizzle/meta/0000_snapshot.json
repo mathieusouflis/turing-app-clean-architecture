@@ -1,11 +1,11 @@
 {
-  "id": "2c8240d4-14d4-42a3-833f-232f336abfc9",
+  "id": "af5fbafa-a175-4bb9-ae34-41806ce1f51a",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.tapes": {
-      "name": "tapes",
+    "public.turing_machine": {
+      "name": "turing_machine",
       "schema": "",
       "columns": {
         "id": {
@@ -15,8 +15,8 @@
           "notNull": true,
           "default": "gen_random_uuid()"
         },
-        "content": {
-          "name": "content",
+        "tape": {
+          "name": "tape",
           "type": "text",
           "primaryKey": false,
           "notNull": true
@@ -38,6 +38,13 @@
           "name": "transitions",
           "type": "jsonb",
           "primaryKey": false,
+          "notNull": true,
+          "default": "'[]'::jsonb"
+        },
+        "rules": {
+          "name": "rules",
+          "type": "jsonb",
+          "primaryKey": false,
           "notNull": true
         },
         "initial_state": {
@@ -46,9 +53,9 @@
           "primaryKey": false,
           "notNull": true
         },
-        "final_states": {
-          "name": "final_states",
-          "type": "text[]",
+        "final_state": {
+          "name": "final_state",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         },

@@ -8,7 +8,9 @@ let dbInstance: ReturnType<typeof drizzle> | null = null;
 let postgresClient: ReturnType<typeof postgres> | null = null;
 
 export class PostgresClient {
-  public db: any;
+  public db: PostgresJsDatabase<Record<string, unknown>> & {
+    $client: postgres.Sql<{}>;
+  };
   private user: string;
   private password: string;
   private host: string;
@@ -29,7 +31,7 @@ export class PostgresClient {
     this.port = config.port;
     this.databaseName = config.databaseName;
     this.connectionString = `postgresql://${this.user}:${this.password}@${this.host}:${this.port}/${this.databaseName}`;
-    this.initialise();
+    this.db = this.initialise();
   }
   initialise() {
     if (dbInstance && postgresClient) {
