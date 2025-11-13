@@ -1,1 +1,1 @@
-export * from "./tape/shemas/tape";
+export * from "./turing-machine/shemas/turing-machine";
