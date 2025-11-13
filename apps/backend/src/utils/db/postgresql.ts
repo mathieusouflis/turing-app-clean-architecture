@@ -33,11 +33,13 @@ export class PostgresClient {
   }
   initialise() {
     if (dbInstance && postgresClient) {
+      this.db = dbInstance;
       return dbInstance;
     }
 
     postgresClient = postgres(this.connectionString);
     dbInstance = drizzle(postgresClient, { schema });
+    this.db = dbInstance;
 
     return dbInstance;
   }

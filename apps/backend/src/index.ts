@@ -1,15 +1,24 @@
 import fastify from "fastify";
 import dotenv from "dotenv";
 import path from "path";
+import cors from "@fastify/cors";
+import { routesPlugin } from "./utils/routes";
 
 const envPath = path.resolve(__dirname, "../../../../.env.dev");
 dotenv.config({ path: envPath });
 
 const server = fastify();
 
-server.get("/ping", async (request, reply) => {
-  return "pong\n";
+server.register(cors, {
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 });
+
+server.register(routesPlugin, {
+  prefix: "/api",
+});
+
 
 const PORT = process.env.BACKEND_PORT || 8080;
 
