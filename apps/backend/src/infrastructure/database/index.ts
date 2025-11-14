@@ -23,6 +23,7 @@ export function createDatabaseClient(databaseUrl: string): any {
   const dbName = url.pathname.slice(1) || "turing_machine";
 
   // Return a client-like object that can be used with TapeRepository
+  // In the modular structure, TapeRepository extends PostgresClient and takes credentials
   return {
     username,
     password,

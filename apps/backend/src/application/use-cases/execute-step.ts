@@ -18,7 +18,7 @@ export class ExecuteStepUseCase {
    */
   async execute(id: string): Promise<TapeRecord | null> {
     // Load tape from database
-    const record = await this.repository.findById(id);
+    const record = await this.repository.get(id);
     if (!record) {
       return null;
     }

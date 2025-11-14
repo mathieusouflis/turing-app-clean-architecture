@@ -26,7 +26,7 @@ export class RunMachineUseCase {
     options: RunMachineRequest = {}
   ): Promise<{ tape: TapeRecord; stepsExecuted: number } | null> {
     // Load tape from database
-    const record = await this.repository.findById(id);
+    const record = await this.repository.get(id);
     if (!record) {
       return null;
     }

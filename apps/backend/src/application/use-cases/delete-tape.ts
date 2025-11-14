@@ -14,7 +14,12 @@ export class DeleteTapeUseCase {
    * @returns true if deleted, false if not found
    */
   async execute(id: string): Promise<boolean> {
-    return await this.repository.delete(id);
+    const tape = await this.repository.get(id);
+    if (!tape) {
+      return false;
+    }
+    await this.repository.delete(id);
+    return true;
   }
 }
 

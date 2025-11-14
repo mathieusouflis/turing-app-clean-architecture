@@ -15,6 +15,6 @@ export class GetTapeUseCase {
    * @returns Tape record or null if not found
    */
   async execute(id: string): Promise<TapeRecord | null> {
-    return await this.repository.findById(id);
+    return await this.repository.get(id);
   }
 }
