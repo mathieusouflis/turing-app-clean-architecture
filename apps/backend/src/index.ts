@@ -2,11 +2,25 @@ import fastify from "fastify";
 import dotenv from "dotenv";
 import path from "path";
 import { routesPlugin } from "./utils/routes";
+import fastifyCors from "@fastify/cors";
 
-const envPath = path.resolve(__dirname, "../../../../.env.dev");
+let envPath = path.resolve(__dirname, "../../../../.env");
 dotenv.config({ path: envPath });
 
+if (process.env.NODE_ENV === "production") {
+  envPath = path.resolve(__dirname, "../../../../.env.prod");
+  dotenv.config({ path: envPath });
+} else if (process.env.NODE_ENV === "development") {
+  envPath = path.resolve(__dirname, "../../../../.env.dev");
+  dotenv.config({ path: envPath });
+}
 const server = fastify();
+
+server.register(fastifyCors, {
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+});
 
 server.register(routesPlugin, {
   prefix: "/api",
