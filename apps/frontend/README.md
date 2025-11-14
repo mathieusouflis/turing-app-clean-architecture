@@ -1,79 +1,83 @@
-# React + TypeScript + Vite
+# Turing Machine Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern React frontend for the Turing Machine application built with TanStack Router, React Query, and Tailwind CSS.
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This frontend application provides a user interface for interacting with the Turing Machine backend API. It allows users to create, manage, and visualize Turing Machine tapes and their execution.
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React 19** - UI library
+- **TanStack Router** - Type-safe routing with file-based routing
+- **TanStack React Query** - Server state management
+- **Zustand** - Client state management
+- **Vite** - Build tool and dev server (using Rolldown)
+- **Tailwind CSS 4** - Utility-first CSS framework
+- **Base UI Components** - Accessible component library
+- **TypeScript** - Type safety
+- **Lucide React** - Icon library
 
-## Expanding the ESLint configuration
+## Quick Start
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Prerequisites
 
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
+- Node.js 18+
+- pnpm (recommended) or npm/yarn
+- Backend server running (see backend README)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Installation
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+1. **Install dependencies**:
+pnpm install2. **Start development server**:
+pnpm devThe app will be available at `http://localhost:5173` (or the next available port).
+
+### Build for Production
+
+pnpm buildThe built files will be in the `dist/` directory.
+
+### Preview Production Build
+
+pnpm startThis serves the production build using Vite's preview server.
+
+## Project Structure
+
+
+src/
+├── api/                    # API client and endpoints
+│   ├── client.ts          # API client configuration
+│   └── endpoints/         # API endpoint definitions
+│
+├── app/                    # Route definitions (TanStack Router)
+│   ├── __root.tsx         # Root route with layout
+│   ├── index.tsx          # Home page route
+│   ├── about.tsx          # About page route
+│   ├── posts.tsx          # Posts page route
+│   └── providers.tsx      # Providers page route
+│
+├── components/            # React components
+│   ├── layout/           # Layout components
+│   │   └── Main/         # Main layout wrapper
+│   │       └── index.tsx
+│   ├── pages/            # Page components
+│   │   └── home-page.tsx
+│   └── ui/               # Reusable UI components
+│       ├── button.tsx
+│       ├── card.tsx
+│       ├── input.tsx
+│       ├── dialog.tsx
+│       └── ... (many more Base UI components)
+│
+├── features/             # Feature modules (organized by feature)
+├── hooks/                # Custom React hooks
+├── lib/                  # Utility functions
+│   └── utils.ts         # Common utilities (clsx, tailwind-merge)
+├── types/                # TypeScript type definitions
+├── assets/               # Static assets
+│   └── index.css        # Global styles
+├── main.tsx             # Application entry point
+└── routeTree.gen.ts     # Auto-generated route tree (DO NOT EDIT)
+
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
-
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
-
-
-Mettre en place l ORM et les dossiers larchi avec les gitkeep
-Mettre en place la migration
-
-Github Action 

@@ -1,10 +1,10 @@
-# Turing Machine Backend - Machine d'Addition Unaire
+# Turing Machine Backend - Unary Addition Machine
 
 A clean architecture implementation of a unary addition Turing Machine backend using Fastify, PostgreSQL, and Drizzle ORM.
 
 This backend implements a simple unary addition machine that transforms unary symbols (`_` = 1) according to specific transition rules.
 
-## 🎯 Subject Requirements
+## Subject Requirements
 
 This backend implements the unary addition machine as specified:
 
@@ -16,15 +16,15 @@ This backend implements the unary addition machine as specified:
   - `A + 1 → write 1, no move, go to HALT`
 - **Final State**: `["HALT"]`
 
-**Notation unaire**: Le symbole `_` représente 1 en notation unaire.
+**Unary Notation**: The symbol `_` represents 1 in unary notation.
 
-## 📚 Documentation
+## Documentation
 
 - **[ARCHITECTURE.md](./ARCHITECTURE.md)** - Detailed explanation of the architecture, design decisions, and data flow
 - **[TESTING.md](./TESTING.md)** - Comprehensive testing guide with examples
 - **[QUICK_START.md](./QUICK_START.md)** - Quick reference for testing the API
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -48,10 +48,12 @@ docker run --name turing-postgres \
   -d postgres:15
 ```
 
-3. **Configure environment** (optional):
+3. **Configure environment**:
+Create a `.env.dev` file at the root of the monorepo with:
 ```bash
-export DB_URL="postgresql://postgres:postgres@localhost:5432/turing_machine"
-export PORT=8080
+DB_URL=postgresql://postgres:postgres@localhost:5432/turing_machine
+BACKEND_PORT=8080
+BACKEND_HOST=0.0.0.0
 ```
 
 4. **Initialize database schema**:
@@ -72,7 +74,7 @@ pnpm dev
 
 Server will start on `http://localhost:8080`
 
-## 🧪 Testing
+## Testing
 
 ### Automated API Tests
 
@@ -98,42 +100,66 @@ curl http://localhost:8080/ping
 # Expected: "pong\n"
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 src/
-├── domain/              # Core business logic (no dependencies)
+├── modules/              # Feature modules (modular architecture)
+│   ├── tape/            # Tape module
+│   │   ├── domains/     # Domain layer (business logic)
+│   │   │   ├── tape.ts
+│   │   │   └── turing-machine.ts
+│   │   ├── shemas/      # Drizzle ORM schemas
+│   │   │   └── tape.ts
+│   │   ├── infrastructure/ # Infrastructure layer
+│   │   │   ├── interface.ts
+│   │   │   └── repositories/
+│   │   │       └── postgresql.ts
+│   │   └── application/ # Application layer
+│   │       └── controller.ts
+│   └── index.schemas.ts # Schema exports
+│
+├── domain/              # Core domain logic (shared)
 │   ├── tape.ts         # Tape entity
 │   └── turing-machine.ts # Turing machine logic
 │
 ├── infrastructure/      # External concerns
 │   └── database/
-│       ├── schema.ts      # Drizzle ORM schema
-│       ├── client.ts      # Database client setup
-│       ├── repository.ts  # Repository implementation
-│       └── index.ts       # Database exports
+│       └── index.ts     # Database client and exports
 │
-├── application/         # Use cases and controllers
-│   ├── use-cases/      # Business workflows
-│   │   ├── create-tape.ts
-│   │   ├── get-tape.ts
-│   │   ├── execute-step.ts
-│   │   ├── run-machine.ts
-│   │   ├── reset-tape.ts
-│   │   └── delete-tape.ts
-│   └── controllers/
-│       └── tapes-controller.ts  # HTTP handlers
+├── application/         # Application layer (use cases and controllers)
+│   ├── controllers/    # HTTP controllers
+│   │   ├── tape-controllers.ts
+│   │   └── tapes-controller.ts
+│   └── use-cases/      # Business workflows
+│       ├── create-tape.ts
+│       ├── get-tape.ts
+│       ├── execute-step.ts
+│       ├── run-machine.ts
+│       ├── reset-tape.ts
+│       └── delete-tape.ts
 │
-├── server.ts           # Server assembly
-└── index.ts            # Entry point
+├── utils/              # Utility functions
+│   ├── db/            # Database utilities
+│   │   └── postgresql.ts
+│   └── routes.ts      # Route utilities
+│
+├── tests/              # Test files
+│   ├── domain/
+│   ├── application/
+│   ├── infrastructure/
+│   ├── helpers/
+│   └── mocks/
+│
+├── server.ts          # Server assembly and configuration
+└── index.ts           # Entry point
 ```
 
-## 🔌 API Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/ping` | Health check |
-| `POST` | `/api/tapes` | Create a new tape |
+docker run --name turing-postgres \
+  -e DB_PASSWORD=postgres \
+  -e DB_NAME=turing_machine \
+  -p 5432:5432 \
+  -d postgres:15 `POST` | `/api/tapes` | Create a new tape |
 | `GET` | `/api/tapes/:id` | Get tape by ID |
 | `PUT` | `/api/tapes/:id/step` | Execute a single step |
 | `PUT` | `/api/tapes/:id/run` | Execute multiple steps |
@@ -142,37 +168,51 @@ src/
 
 See [QUICK_START.md](./QUICK_START.md) for detailed examples.
 
-## 🏗️ Architecture
+## Architecture
 
-This project follows **Clean Architecture** (Hexagonal Architecture) principles:
+This project follows **Clean Architecture** (Hexagonal Architecture) principles with a modular structure:
 
 - **Domain Layer**: Pure business logic, no external dependencies
-- **Infrastructure Layer**: Database access, external services
+- **Infrastructure Layer**: Database access, external services, repository implementations
 - **Application Layer**: Use cases and HTTP controllers
 - **Server Layer**: Wiring everything together
 
 Dependencies flow **inward**: Domain has no dependencies, Infrastructure depends on Domain, Application depends on both.
 
+The codebase is organized by **modules** (feature-based) with each module containing its own domain, infrastructure, and application layers.
+
 See [ARCHITECTURE.md](./ARCHITECTURE.md) for detailed explanation.
 
-## 🔧 Configuration
+## Configuration
 
 ### Environment Variables
 
+The backend reads environment variables from `.env.dev` at the root of the monorepo:
+
 - `DB_URL`: PostgreSQL connection string
   - Default: `postgresql://postgres:postgres@localhost:5432/turing_machine`
-- `PORT`: Server port
+- `BACKEND_PORT`: Server port
   - Default: `8080`
-- `HOST`: Server host
+- `BACKEND_HOST`: Server host
   - Default: `0.0.0.0`
 
-## 📝 Example: Creating and Running the Unary Addition Machine
+### Available Scripts
+
+- `pnpm build` - Compile TypeScript and build the project
+- `pnpm dev` - Start development server with hot reload (nodemon)
+- `pnpm start` - Build and run the production server
+- `pnpm check-types` - Type check without emitting files
+- `pnpm db:generate` - Generate database migrations
+- `pnpm db:migrate` - Run database migrations
+- `pnpm db:push` - Push schema changes directly to database
+- `pnpm db:studio` - Open Drizzle Studio (database GUI)
+
+## Example: Creating and Running the Unary Addition Machine
 
 ### Create a Tape (Uses Defaults)
 
 The backend provides defaults matching the unary addition machine subject:
-
-```bash
+ash
 # Create a tape with default values (no body needed)
 curl -X POST http://localhost:8080/api/tapes \
   -H "Content-Type: application/json"
@@ -185,14 +225,10 @@ curl -X POST http://localhost:8080/api/tapes \
 #     {currentState: "A", readSymbol: "_", writeSymbol: "1", moveDirection: "R", nextState: "A"},
 #     {currentState: "A", readSymbol: "1", writeSymbol: "1", moveDirection: "R", nextState: "HALT"}
 #   ]
-# - finalStates: ["HALT"]
-```
-
-### Custom Tape (Optional)
+# - finalStates: ["HALT"]### Custom Tape (Optional)
 
 You can also create a custom tape:
 
-```bash
 curl -X POST http://localhost:8080/api/tapes \
   -H "Content-Type: application/json" \
   -d '{
@@ -216,49 +252,38 @@ curl -X POST http://localhost:8080/api/tapes \
     ],
     "initialState": "A",
     "finalStates": ["HALT"]
-  }'
-```
+  }'### Execute Steps
 
-### Execute Steps
-
-```bash
 # Save the returned ID, then execute one step
 curl -X PUT http://localhost:8080/api/tapes/{ID}/step
 
 # Or execute multiple steps
 curl -X PUT http://localhost:8080/api/tapes/{ID}/run \
   -H "Content-Type: application/json" \
-  -d '{"maxSteps": 10}'
-```
-
-## 🧩 Key Concepts
+  -d '{"maxSteps": 10}'## Key Concepts
 
 ### Unary Addition Machine Rules
 
 This backend implements a specific unary addition machine with these transition rules:
 
-| État | Symbole lu | Écrire | Déplacer | Nouvel état |
-|------|------------|--------|----------|-------------|
-| A    | _          | 1      | → (droite) | A           |
-| A    | 1          | 1      | (pas de déplacement) | HALT (fin) |
+| State | Read Symbol | Write | Move | New State |
+|-------|-------------|-------|------|-----------|
+| A     | _           | 1     | → (right) | A         |
+| A     | 1           | 1     | (no move) | HALT (end) |
 
-**Notation unaire**: Le symbole `_` représente 1 en notation unaire.
+**Unary Notation**: The symbol `_` represents 1 in unary notation.
 
 ### Transition Rule Format
 
 A transition rule defines what happens when the machine is in a certain state and reads a certain symbol:
 
-```typescript
 {
   currentState: "A",       // Current state ("A" for this machine)
-  readSymbol: "_",        // Symbol read from tape ("_" or "1")
-  writeSymbol: "1",       // Symbol to write
+  readSymbol: "_",         // Symbol read from tape ("_" or "1")
+  writeSymbol: "1",        // Symbol to write
   moveDirection: "R",      // Move head Left ("L") or Right ("R")
   nextState: "A"           // State to transition to ("A" or "HALT")
-}
-```
-
-### Tape
+}### Tape
 
 The tape is an array of cells. For the unary addition machine:
 - Default tape: `["_", "_", "_", "_", "_", "_", "1"]` (represented as string `"______1"`)
@@ -271,39 +296,53 @@ The tape is an array of cells. For the unary addition machine:
 - **Current State**: The machine's current state during execution (`"A"` or `"HALT"`)
 - **Final States**: `["HALT"]` - When the machine reads `1` in state A, it halts without moving
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 **Server won't start?**
 - Check PostgreSQL is running: `docker ps | grep postgres`
-- Verify DB_URL is correct
+- Verify DB_URL is correct in `.env.dev`
 - Check port 8080 is available
+- Check server logs for error messages
 
 **Database connection errors?**
 - Ensure PostgreSQL is accessible
-- Check connection string format
+- Check connection string format: `postgresql://user:password@host:port/database`
 - Verify database `turing_machine` exists
 - Run `pnpm db:push` to create tables if schema is missing
 
 **404 errors?**
-- Verify tape ID exists
+- Verify tape ID exists in the database
 - Check URL path is correct (`/api/tapes/...`)
+- Ensure the server is running
 
 **500 errors?**
-- Check server logs for details
-- Verify database schema was created
-- Check request body format
+- Check server logs for detailed error messages
+- Verify database schema was created (`pnpm db:push`)
+- Check request body format matches API expectations
+- Verify all required fields are provided
 
-## 📚 Learn More
+**Type errors during build?**
+- Run `pnpm check-types` to see all TypeScript errors
+- Ensure all dependencies are installed: `pnpm install`
+- Check that path aliases are correctly configured in `tsconfig.json`
+
+**Environment variables not loading?**
+- Ensure `.env.dev` exists at the root of the monorepo
+- Check that the file path in `src/index.ts` is correct
+- Verify variable names match (`BACKEND_PORT`, `BACKEND_HOST`, `DB_URL`)
+
+## Learn More
 
 - [Clean Architecture Explained](./ARCHITECTURE.md)
 - [Testing Guide](./TESTING.md)
 - [API Quick Reference](./QUICK_START.md)
 
-## 🎓 Educational Value
+## Educational Value
 
 This project demonstrates:
 
 - Clean Architecture / Hexagonal Architecture
+- Modular architecture with feature-based organization
 - Repository Pattern
 - Use Case Pattern
 - Dependency Injection
