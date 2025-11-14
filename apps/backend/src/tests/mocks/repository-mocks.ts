@@ -1,4 +1,4 @@
-import type { DatabaseClient } from '../../infrastructure/database/client.js';
+import type { DatabaseClient } from '../../utils/db/postgresql';
 
 export class MockTapeRepository {
   public db?: DatabaseClient;
