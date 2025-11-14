@@ -45,6 +45,9 @@ importers:
         specifier: ^4.1.12
         version: 4.1.12
     devDependencies:
+      '@repo/types':
+        specifier: workspace:^
+        version: link:../../packages/types
       '@types/node':
         specifier: ^24.10.0
         version: 24.10.1
@@ -109,6 +112,9 @@ importers:
       '@eslint/js':
         specifier: ^9.39.1
         version: 9.39.1
+      '@repo/types':
+        specifier: workspace:^
+        version: link:../../packages/types
       '@tanstack/router-plugin':
         specifier: ^1.135.2
         version: 1.135.2(@tanstack/react-router@1.135.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(rolldown-vite@7.2.2(@types/node@24.10.1)(esbuild@0.25.12)(jiti@2.6.1)(tsx@4.20.6))
@@ -186,6 +192,10 @@ importers:
         version: 8.40.0(eslint@9.34.0(jiti@2.6.1))(typescript@5.9.2)
 
   packages/types:
+    dependencies:
+      zod:
+        specifier: ^4.1.12
+        version: 4.1.12
     devDependencies:
       '@repo/typescript-config':
         specifier: workspace:*
