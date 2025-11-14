@@ -8,12 +8,12 @@ services:
     ports:
       - "${DB_PORT:-5432}:5432"
     environment:
-      DB_USER: ${DB_USER:-root}
-      DB_PASSWORD: ${DB_PASSWORD:-root}
-      DB_NAME: ${DB_NAME:-database}
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      POSTGRES_DB: ${DB_NAME:-turing_machine}
     healthcheck:
       test:
-        ["CMD-SHELL", "pg_isready -U ${DB_USER:-root} -d ${DB_NAME:-database}"]
+        ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-turing_machine}"]
       interval: 10s
       timeout: 5s
       retries: 5
