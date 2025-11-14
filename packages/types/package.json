@@ -1,14 +1,22 @@
 {
   "name": "@repo/types",
   "version": "0.1.0",
-  "scripts": {
-    "check-types": "tsc --noEmit"
-  },
-  "main": "./src/index.ts",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": [
-      "./src/index.ts"
-    ]
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "check-types": "tsc --noEmit"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
