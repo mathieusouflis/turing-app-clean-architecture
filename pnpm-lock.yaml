@@ -35,9 +35,6 @@ importers:
       fastify:
         specifier: ^5.6.2
         version: 5.6.2
-      nodemod:
-        specifier: ^3.0.6
-        version: 3.0.6
       postgres:
         specifier: ^3.4.7
         version: 3.4.7
@@ -2230,16 +2227,9 @@ packages:
     resolution: {integrity: sha512-utfs7Pr5uJyyvDETitgsaqSyjCb2qNRAtuqUeWIAKztsOYdcACf2KtARYXg2pSvhkt+9NfoaNY7fxjl6nuMjIQ==}
     engines: {node: '>= 12.0.0'}
 
-  lit-ntml@3.0.6:
-    resolution: {integrity: sha512-PTxjoB1rgwGkfd8lN8agw7MeCojG2voJRBl2G/HBWH6mwsFobqUs+8NSymwPuFCFaAOuxlIVn42aahi3NhD0yg==}
-    engines: {node: '>= 16.x', npm: '>= 8.x'}
-
   locate-path@6.0.0:
     resolution: {integrity: sha512-iPZK6eYjbxRu3uB4/WZ3EsEIMJFMqAoopl3R+zuq0UjcAm/MO6KCweDgPfP3elTztoKP3KtnVHxTn2NHBSDVUw==}
     engines: {node: '>=10'}
-
-  lodash-es@4.17.21:
-    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
 
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
@@ -2295,18 +2285,10 @@ packages:
   node-releases@2.0.27:
     resolution: {integrity: sha512-nmh3lCkYZ3grZvqcCH+fjmQ7X+H0OeZgP40OierEaAptX4XofMh5kwNbWh7lBduUzCcV/8kZ+NDLCwm2iorIlA==}
 
-  nodemod@3.0.6:
-    resolution: {integrity: sha512-XsW1ydsY8Dh7IyBIVsF8QFVNlBOUHMEJ8BNLzj8G9O27/g3KqfvfGZ8LFP3cOFcksZQ7skQdNVsgx+A7E56wMg==}
-    engines: {node: '>= 16.x', npm: '>= 8.x'}
-
   nodemon@3.1.11:
     resolution: {integrity: sha512-is96t8F/1//UHAjNPHpbsNY46ELPpftGUoSVNXwUfMk/qdjSylYrWSu1XavVTBOn526kFiOR733ATgNBCQyH0g==}
     engines: {node: '>=10'}
     hasBin: true
-
-  normalize-diacritics@3.0.12:
-    resolution: {integrity: sha512-uNeOao4V5dt1gDr+mFjOWZ+LS7LCZ0oRpNyKvPsQdO9ftAqBs3C9VZquj2+9B1sv72y77IyWIzSTrqxvnXCi/g==}
-    engines: {node: '>= 14.x', npm: '>= 6.x'}
 
   normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
@@ -2363,9 +2345,6 @@ packages:
   parent-module@1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
     engines: {node: '>=6'}
-
-  parse5@6.0.1:
-    resolution: {integrity: sha512-Ofn/CTFzRGTTxwpNEs9PP93gXShHcTq255nzRYSKe8AkVpZY7e1fpmTfOyoIvjP5HG7Z2ZM7VS9PPhQGW2pOpw==}
 
   path-exists@4.0.0:
     resolution: {integrity: sha512-ak9Qy5Q7jYb2Wwcey5Fpvg2KoAc/ZIhLSLOSBmRmygPsGwkVVt0fZa0qrtMz+m6tJTAHfZQ8FnmB4MG4LWy7/w==}
@@ -5101,16 +5080,9 @@ snapshots:
       lightningcss-win32-arm64-msvc: 1.30.2
       lightningcss-win32-x64-msvc: 1.30.2
 
-  lit-ntml@3.0.6:
-    dependencies:
-      parse5: 6.0.1
-      tslib: 2.8.1
-
   locate-path@6.0.0:
     dependencies:
       p-locate: 5.0.0
-
-  lodash-es@4.17.21: {}
 
   lodash.merge@4.6.2: {}
 
@@ -5157,13 +5129,6 @@ snapshots:
 
   node-releases@2.0.27: {}
 
-  nodemod@3.0.6:
-    dependencies:
-      lit-ntml: 3.0.6
-      lodash-es: 4.17.21
-      normalize-diacritics: 3.0.12
-      tslib: 2.8.1
-
   nodemon@3.1.11:
     dependencies:
       chokidar: 3.6.0
@@ -5176,10 +5141,6 @@ snapshots:
       supports-color: 5.5.0
       touch: 3.1.1
       undefsafe: 2.0.5
-
-  normalize-diacritics@3.0.12:
-    dependencies:
-      tslib: 2.8.1
 
   normalize-path@3.0.0: {}
 
@@ -5247,8 +5208,6 @@ snapshots:
   parent-module@1.0.1:
     dependencies:
       callsites: 3.1.0
-
-  parse5@6.0.1: {}
 
   path-exists@4.0.0: {}
 

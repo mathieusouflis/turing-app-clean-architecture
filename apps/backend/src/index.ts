@@ -19,7 +19,6 @@ server.register(routesPlugin, {
   prefix: "/api",
 });
 
-
 const PORT = process.env.BACKEND_PORT || 8080;
 
 server.listen(
