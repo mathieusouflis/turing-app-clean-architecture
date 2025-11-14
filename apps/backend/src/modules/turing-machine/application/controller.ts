@@ -1,15 +1,15 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { CreateUseCase } from "./use-cases/create";
-import {
-  NewTuringMachineRecordSchema,
-  UpdateTuringMachineRecordSchema,
-} from "../shemas/turing-machine";
 import { DeleteUseCase } from "./use-cases/delete";
 import { GetByIdUseCase } from "./use-cases/get-by-id";
 import { ListUseCase } from "./use-cases/list";
 import { UpdateUseCase } from "./use-cases/update";
 import { StepUseCase } from "./use-cases/step";
 import { RunUseCase } from "./use-cases/run";
+import {
+  NewTuringMachineRecordSchema,
+  UpdateTuringMachineRecordSchema,
+} from "@repo/types";
 
 export class TuringMachineController {
   constructor(
