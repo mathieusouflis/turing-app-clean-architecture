@@ -13,6 +13,7 @@ import { Route as ProvidersRouteImport } from './app/providers'
 import { Route as PostsRouteImport } from './app/posts'
 import { Route as AboutRouteImport } from './app/about'
 import { Route as IndexRouteImport } from './app/index'
+import { Route as TuringMachineIdRouteImport } from './app/turing-machine/$id'
 
 const ProvidersRoute = ProvidersRouteImport.update({
   id: '/providers',
@@ -34,18 +35,25 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TuringMachineIdRoute = TuringMachineIdRouteImport.update({
+  id: '/turing-machine/$id',
+  path: '/turing-machine/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/posts': typeof PostsRoute
   '/providers': typeof ProvidersRoute
+  '/turing-machine/$id': typeof TuringMachineIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/posts': typeof PostsRoute
   '/providers': typeof ProvidersRoute
+  '/turing-machine/$id': typeof TuringMachineIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +61,20 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/posts': typeof PostsRoute
   '/providers': typeof ProvidersRoute
+  '/turing-machine/$id': typeof TuringMachineIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/posts' | '/providers'
+  fullPaths: '/' | '/about' | '/posts' | '/providers' | '/turing-machine/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/posts' | '/providers'
-  id: '__root__' | '/' | '/about' | '/posts' | '/providers'
+  to: '/' | '/about' | '/posts' | '/providers' | '/turing-machine/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/posts'
+    | '/providers'
+    | '/turing-machine/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,6 +82,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   PostsRoute: typeof PostsRoute
   ProvidersRoute: typeof ProvidersRoute
+  TuringMachineIdRoute: typeof TuringMachineIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -99,6 +115,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/turing-machine/$id': {
+      id: '/turing-machine/$id'
+      path: '/turing-machine/$id'
+      fullPath: '/turing-machine/$id'
+      preLoaderRoute: typeof TuringMachineIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -107,6 +130,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   PostsRoute: PostsRoute,
   ProvidersRoute: ProvidersRoute,
+  TuringMachineIdRoute: TuringMachineIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
