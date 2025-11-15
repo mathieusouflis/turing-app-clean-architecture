@@ -1,4 +1,10 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "@tanstack/react-router";
 import { useUsers } from "@/hooks/useUsers";
@@ -24,14 +30,21 @@ export function TuringMachineCard(props: { id: string; tape: string }) {
 
   return (
     <Link to={`/turing-machine/${props.id}`}>
-      <Card className="relative">
+      <Card>
         <CardHeader>
           <CardTitle>{props.id}</CardTitle>
         </CardHeader>
         <CardContent>
           <p className="font-mono">{props.tape}</p>
         </CardContent>
-        <div className="absolute top-2 right-2">
+        {deleteMutation.isError && (
+          <div className="px-6 pb-4">
+            <p className="text-red-500 text-sm">
+              Error: {deleteMutation.error.message}
+            </p>
+          </div>
+        )}
+        <CardAction className="px-6">
           <Button
             variant="destructive"
             size="sm"
@@ -40,14 +53,7 @@ export function TuringMachineCard(props: { id: string; tape: string }) {
           >
             {deleteMutation.isPending ? "Deleting..." : "Delete"}
           </Button>
-        </div>
-        {deleteMutation.isError && (
-          <div className="px-6 pb-4">
-            <p className="text-red-500 text-sm">
-              Error: {deleteMutation.error.message}
-            </p>
-          </div>
-        )}
+        </CardAction>
       </Card>
     </Link>
   );
