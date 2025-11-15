@@ -19,7 +19,10 @@ export async function create(
   );
 
   if (!response.ok) {
-    throw new Error(`Failed to create record: ${response.statusText}`);
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(
+      errorData.message || `Failed to create: ${response.statusText}`,
+    );
   }
 
   return response.json();

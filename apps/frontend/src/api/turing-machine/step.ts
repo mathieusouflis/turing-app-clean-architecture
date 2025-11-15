@@ -10,9 +10,10 @@ export async function step(id: string): Promise<TuringMachineRecordType> {
   );
 
   if (!response.ok) {
-    const errorMessage = `Failed to step turing machine: ${response.status} ${response.statusText}`;
-    throw new Error(errorMessage);
+    throw new Error(
+      `Failed to step turing machine: ${response.status} ${response.statusText}`,
+    );
   }
 
-  return await response.json();
+  return response.json();
 }
