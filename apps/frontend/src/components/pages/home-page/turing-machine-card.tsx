@@ -7,10 +7,10 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "@tanstack/react-router";
-import { useUsers } from "@/hooks/useUsers";
+import { useTuringMachines } from "@/hooks/use-turing-machines";
 
 export function TuringMachineCard(props: { id: string; tape: string }) {
-  const userApi = useUsers();
+  const userApi = useTuringMachines();
   const deleteMutation = userApi.useDelete();
 
   const handleDelete = (e: React.MouseEvent) => {

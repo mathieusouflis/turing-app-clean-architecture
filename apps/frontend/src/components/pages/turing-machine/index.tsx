@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useUsers } from "@/hooks/useUsers";
+import { useTuringMachines } from "@/hooks/use-turing-machines";
 import { useParams } from "@tanstack/react-router";
 
 export function TuringMachinePage(props: { path: string }) {
@@ -7,7 +7,7 @@ export function TuringMachinePage(props: { path: string }) {
     from: props.path,
   });
 
-  const userApi = useUsers();
+  const userApi = useTuringMachines();
   const { data: machine, error, isLoading, isError } = userApi.useGetById(id);
   const stepMutation = userApi.useStep();
   const runMutation = userApi.useRun();

@@ -1,8 +1,8 @@
+import { useTuringMachines } from "@/hooks/use-turing-machines";
 import { TuringMachineCard } from "./turing-machine-card";
-import { useUsers } from "@/hooks/useUsers";
 
 export function Homepage() {
-  const userApi = useUsers();
+  const userApi = useTuringMachines();
   const { data, isLoading, isError, error } = userApi.useList();
 
   if (isLoading) {
