@@ -5,7 +5,7 @@ import { useStep } from "./step";
 import { useGetById } from "./use-get-by-id";
 import { useList } from "./use-list";
 
-export const useUsers = () => {
+export const useTuringMachines = () => {
   return {
     useList,
     useGetById,
